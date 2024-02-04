@@ -25,7 +25,7 @@ int main()
     // Make the window's context current
     glfwMakeContextCurrent(window);
 
-    ImGui::CreateContext();
+    auto context = ImGui::CreateContext();
     ImGuiIO &io = ImGui::GetIO();
     (void)io;
 
@@ -42,6 +42,34 @@ int main()
         ImGui::NewFrame();
 
         // Your rendering/UI code goes here
+        static float f = 0.0f;
+        static int counter = 0;
+
+        ImGui::SetNextWindowSize(io.DisplaySize);
+        ImGui::SetNextWindowPos(ImVec2(0, 0));
+        ImGui::PushStyleColor(ImGuiCol_ResizeGrip, 0);
+        ImGui::PushStyleColor(ImGuiCol_ResizeGripHovered, 0);
+
+        ImGui::Begin("Hello, world!");
+
+        // Style
+        ImGui::PopStyleColor();
+        ImGui::PopStyleColor();
+        ImGui::GetStyle().WindowMenuButtonPosition = ImGuiDir_None;
+        if (ImGui::GetMouseCursor() == ImGuiMouseCursor_ResizeNWSE)
+            ImGui::SetMouseCursor(ImGuiMouseCursor_Arrow);
+
+        float defaultScale = ImGui::GetFont()->Scale;
+        ImGui::GetFont()->Scale *= .7;
+        ImGui::PushFont(ImGui::GetFont());
+
+        ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+        ImGui::GetFont()->Scale = defaultScale;
+        ImGui::PopFont();
+
+        ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+
+        ImGui::End();
 
         // Rendering
         ImGui::Render();
