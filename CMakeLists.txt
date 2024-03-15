@@ -2,8 +2,12 @@ cmake_minimum_required(VERSION 3.12)
 
 project(FileForest)
 
+set (CMAKE_CXX_STANDARD 20)
+
+
 set(glfw3_DIR "C:/Program Files (x86)/GLFW/lib/cmake/glfw3")
 set(imgui_DIR ${PROJECT_SOURCE_DIR}/extern/imgui/)
+
 
 set(IMGUI_SRC
         ${imgui_DIR}/backends/imgui_impl_opengl3.h
